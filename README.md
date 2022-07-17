@@ -16,6 +16,64 @@ The result is a single zip file ready to upload.
 
 When the packer runs zip, it will zip all files in the output directory. If you wish to zip more than just the final HTML file you should add the files to the output directory before running the packer.
 
+Given the following input HTML file:
+
+```html
+<html>
+  <head>
+    <style>
+      html { 
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+    <link rel="stylesheet" href="./index.css"/>
+  </head>
+  <body>
+    <script>
+      window.canvas = document.createElement('canvas');
+      document.body.appendChild(canvas);
+    </script>
+    <script src="./index.js"></script>
+  </body>
+</html>
+```
+
+The final result will look as follows (before minification and Roadroller):
+
+```html
+<html>
+  <head>
+    <style>
+      // index.html
+      html { 
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+      }
+
+      // ./index.css
+      canvas {
+        background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // index.html
+      window.canvas = document.createElement('canvas');
+      document.body.appendChild(canvas);
+    
+      // ./index.js
+      const game = {
+        // ...
+      }
+    </script>
+  </body>
+</html>
+```
+
 ### CLI
 
 ```bash
