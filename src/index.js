@@ -1,0 +1,72 @@
+import { promises as fs } from 'fs';
+import path from 'path';
+import { JSDOM } from 'jsdom';
+import {
+  bundleCss,
+  bundleHtml,
+  bundleJs,
+  ect,
+  extract,
+  fileSize,
+  minifyHtml,
+  roadroller,
+  zip
+} from './utils/index.js';
+import { scriptSelector, styleSelector } from './constants.js';
+
+export async function pack(file, outdir, options = {}) {
+  const dir = path.dirname(file);
+  const filename = path.basename(file);
+  const outdirPath = path.join(process.cwd(), outdir);
+
+  const {
+    bundle: esbuildOptions = true,
+    minify = true,
+    pack = true,
+    output
+  } = options;
+
+  const html = await fs.readFile(file, 'utf8');
+  const dom = new JSDOM(html);
+  const scripts = await extract(dom, {
+    dir,
+    selector: scriptSelector,
+    type: '.js'
+  });
+  const styles = await extract(dom, {
+    dir,
+    selector: styleSelector,
+    type: '.css'
+  });
+
+  let bundledJs = await bundleJs(scripts, {
+    dir,
+    filename,
+    esbuildOptions
+  });
+  const bundledCss = await bundleCss(styles);
+
+  let optimizedJs = bundledJs;
+  if (pack === true || pack?.input?.type === 'js') {
+    optimizedJs = await roadroller(bundledJs, pack)
+  }
+
+  const bundledHtml = await bundleHtml(
+    html, optimizedJs, bundledCss, pack
+  );
+  let htmlOutput = await minifyHtml(bundledHtml, minify);
+
+  if (pack?.input?.type === 'text') {
+    htmlOutput = await roadroller(htmlOutput, pack);
+    htmlOutput = `<script>${htmlOutput}</script>`;
+  }
+
+  await fs.mkdir(outdirPath, { recursive: true });
+  await fs.writeFile(path.join(outdirPath, 'index.html'), htmlOutput, 'utf8');
+  const zipFile = await zip(outdirPath, output);
+  await ect(zipFile);
+  await fileSize(zipFile);
+}
+
+const js13kPacker = { pack };
+export default js13kPacker;
