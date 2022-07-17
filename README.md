@@ -46,14 +46,14 @@ The final result will look as follows (before minification and Roadroller):
 <html>
   <head>
     <style>
-      // index.html
+      /* index.html */
       html { 
         display: flex; 
         align-items: center;
         justify-content: center;
       }
 
-      // ./index.css
+      /* ./index.css */
       canvas {
         background: black;
       }
