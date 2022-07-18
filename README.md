@@ -166,4 +166,4 @@ const options = {
 pack('index.html', 'dist', options);
 ```
 
-**Note:** By default, the packer will run Roadroller on the JavaScript bundle and add that to the final HTML output. If you'd rather run Roadroller on the final HTML file and use `document.write`, change the input option to `type: 'text'` with `action: 'write'`.
+**Note:** By default, the packer will run Roadroller on the on the final HTML file . If you'd rather run Roadroller on just the JavaScript code and use `eval`, change the input option to `type: 'js'` with `action: 'eval'`.
