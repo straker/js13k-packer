@@ -1,6 +1,6 @@
 {
   "name": "js13k-packer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Optimally package js13kGames files for upload.",
   "keywords": [
     "js13k",
