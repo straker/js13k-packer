@@ -49,11 +49,11 @@ export const htmlMinifierDefaults = {
 };
 export const roadrollerDefaults = {
   input: {
-    type: 'js',
-    action: 'eval'
+    type: 'text',
+    action: 'write'
   },
   options: {
     allowFreeVars: true
   },
-  optimize: 1
+  optimize: 2
 };

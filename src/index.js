@@ -47,7 +47,7 @@ export async function pack(file, outdir, options = {}) {
   const bundledCss = await bundleCss(styles);
 
   let optimizedJs = bundledJs;
-  if (pack === true || pack?.input?.type === 'js') {
+  if (pack?.input?.type === 'js') {
     optimizedJs = await roadroller(bundledJs, pack)
   }
 
@@ -56,7 +56,7 @@ export async function pack(file, outdir, options = {}) {
   );
   let htmlOutput = await minifyHtml(bundledHtml, minify);
 
-  if (pack?.input?.type === 'text') {
+  if (pack === true || pack?.input?.type === 'text') {
     htmlOutput = await roadroller(htmlOutput, pack);
     htmlOutput = `<script>${htmlOutput}</script>`;
   }

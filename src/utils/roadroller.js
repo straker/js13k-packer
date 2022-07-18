@@ -15,7 +15,8 @@ export default async function roadroller(data, roadrollerOptions) {
     }
   ];
   const packer = new Packer(inputs, options);
-  await packer.optimize(optimize);
+  const results = await packer.optimize(optimize);
+  console.log('Roadroller results:', results);
   const { firstLine, secondLine } = packer.makeDecoder();
   return firstLine + '\n' + secondLine;
 }
