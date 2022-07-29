@@ -31,7 +31,6 @@
     "glob-promise": "^4.2.2",
     "html-minifier-terser": "^6.1.0",
     "jsdom": "^20.0.0",
-    "jszip": "^3.10.0",
     "roadroller": "^2.1.0"
   }
 }

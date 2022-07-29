@@ -7,4 +7,3 @@ export { default as fileSize } from './file-size.js';
 export { default as minifyHtml } from './minify-html.js';
 export { default as parseJson } from './parse-json.js';
 export { default as roadroller } from './roadroller.js';
-export { default as zip } from './zip.js';

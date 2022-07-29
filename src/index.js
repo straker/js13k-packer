@@ -9,8 +9,7 @@ import {
   extract,
   fileSize,
   minifyHtml,
-  roadroller,
-  zip
+  roadroller
 } from './utils/index.js';
 import { scriptSelector, styleSelector } from './constants.js';
 
@@ -23,7 +22,7 @@ export async function pack(file, outdir, options = {}) {
     bundle: esbuildOptions = true,
     minify = true,
     pack = true,
-    output
+    output = path.basename(outdirPath) + '.zip'
   } = options;
 
   const html = await fs.readFile(file, 'utf8');
@@ -63,9 +62,8 @@ export async function pack(file, outdir, options = {}) {
 
   await fs.mkdir(outdirPath, { recursive: true });
   await fs.writeFile(path.join(outdirPath, 'index.html'), htmlOutput, 'utf8');
-  const zipFile = await zip(outdirPath, output);
-  await ect(zipFile);
-  await fileSize(zipFile);
+  await ect(outdirPath, output);
+  await fileSize(path.join(outdirPath, output));
 }
 
 const js13kPacker = { pack };
