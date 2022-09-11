@@ -10,7 +10,7 @@ npm install js13k-packer
 
 ## Usage
 
-js13k-packer takes a single HTML input file and extracts all the CSS and JavaScript code, bundling them into single `<style>` and `<script>` elements in the HTML file. It then minifies the file, runs it through Roadroller, zips it, and finally runs [ect](https://github.com/fhanau/Efficient-Compression-Tool) on it.
+js13k-packer takes a single HTML input file and extracts all the CSS and JavaScript code, bundling them into single `<style>` and `<script>` elements in the HTML file. It then minifies the file, runs it through [Roadroller](https://github.com/lifthrasiir/roadroller), and finally zips it using [ect](https://github.com/fhanau/Efficient-Compression-Tool).
 
 The result is a single zip file ready to upload.
 
